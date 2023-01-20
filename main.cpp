@@ -15,8 +15,6 @@ public:
     char k;
     Node* left;
     Node* right;
-    int height = 1;
-    int amount = 1;
 
     void Insert_prefix(string& expression)
     {
@@ -54,14 +52,12 @@ public:
 
     void Insert_infix(string expression)
     {
-        cout << ":)\n";
         int n = expression.size();
         int* a = new int[n];
         for (int i = 0; i < n; i++)
         {
             a[i] = 0;
         }
-        cout << ":)\n";
         for (int i = 0, t = 0; i < n; i++)
         {
             if (expression[i] == '(')
@@ -71,27 +67,18 @@ public:
             a[i] = t;
         }
         int j = 0, m = 9999999;
-        cout << ":)\n";
         for (int i = 0; i < n; i++)
         {
-            cout << j << " " << a[i] << " " << expression[i] << "          ";
-            if (a[i] <= m)cout<<1;
-            if (!(int(expression[i]) <= 57 && int(expression[i]) >= 48))cout<<2;
-            if (!(expression[i] == '('))cout<<3;
-            if (!(expression[i] == ')'))cout<<4;
             if (a[i] <= m && i > j && !(int(expression[i]) <= 57 && int(expression[i]) >= 48) && !(expression[i] == '(') && !(expression[i] == ')'))
             {
                 j = i;
                 m = a[i];
             }
-            cout << endl;
         }
-        cout << ":)\n";
         if (m == 9999999)
         {
             m = 0;
         }
-        cout << m << endl;
         if (m != 0)
         {
             for (; m; m--)
@@ -102,10 +89,8 @@ public:
                 n-=2;
             }
         }
-        cout << ":)\n";
         delete[] a;
         k = expression[j];
-        cout << ":)\n";
         if (!(int(k) <= 57 && int(k) >= 48) && expression.size())
         {
             if (j > 0 && j < expression.size() - 1)
@@ -134,45 +119,6 @@ public:
         else if (type == "prefix")
             Insert_prefix(expression);
     }
-
-
-    /*void Insert(int x)
-    {
-        if (x < k)
-        {
-            if (left != nullptr)
-            {
-                left->Insert(x);
-            }
-            else
-            {
-                left = new Node;
-                left->k = x;
-                left->left = nullptr;
-                left->right = nullptr;
-                //height = Height();
-            }
-        }
-        else if (x > k)
-        {
-            if (right != nullptr)
-            {
-                right->Insert(x);
-            }
-            else
-            {
-                right = new Node;
-                right->k = x;
-                right->left = nullptr;
-                right->right = nullptr;
-                //height = Height();
-            }
-        }
-        else if (x == k)
-        {
-            amount++;
-        }
-    }*/
 
     int Height()
     {
@@ -218,64 +164,6 @@ public:
             left->Print_with_sons();
         if (right != nullptr)
             right->Print_with_sons();
-    }
-
-    void Print()
-    {
-        if (left != nullptr)
-            left->Print();
-
-        cout << k << " ";
-
-        if (right != nullptr)
-            right->Print();
-    }
-
-    void Print_amount()
-    {
-        if (left != nullptr)
-            left->Print_amount();
-
-        cout << k << " " << amount << endl;
-
-        if (right != nullptr)
-            right->Print_amount();
-    }
-
-    void Print_leaves()
-    {
-        if (left != nullptr)
-            left->Print_leaves();
-
-        if (left == nullptr && right == nullptr)
-            cout << k << "\n";
-
-        if (right != nullptr)
-            right->Print_leaves();
-    }
-
-    bool Is_balanced()
-    {
-        if (left == nullptr && right == nullptr)
-        {
-            return true;
-        }
-        else if (left == nullptr && right != nullptr)
-        {
-            if (right->Height() < 2)
-                return true;
-            else
-                return false;
-        }
-        else if (right == nullptr && left != nullptr)
-        {
-            if (left->Height() < 2)
-                return true;
-            else
-                return false;
-        }
-        else
-            return left->Is_balanced() && right->Is_balanced();
     }
 
     void to_postfix(string& answer)
@@ -467,49 +355,9 @@ public:
         Pnode->Insert_type(type, expression);
     }
 
-    /*void Insert(string type, string expression)
-    {
-        if (Pnode != nullptr)
-        {
-            Pnode->Insert(type, expression);
-        }
-        else
-        {
-            Pnode = new Node;
-            Pnode->left = nullptr;
-            Pnode->right = nullptr;
-            Pnode->k = '';
-        }
-    }*/
-
-    void Print()
-    {
-        Pnode->Print();
-    }
-
     void Print_with_sons()
     {
         Pnode->Print_with_sons();
-    }
-
-    int Height()
-    {
-        return Pnode->Height() + 1;
-    }
-
-    void Print_leaves()
-    {
-        Pnode->Print_leaves();
-    }
-
-    bool Is_balanced()
-    {
-        return Pnode->Is_balanced();
-    }
-
-    void Print_amount()
-    {
-        Pnode->Print_amount();
     }
 
     vector<string> to_different(string type)
